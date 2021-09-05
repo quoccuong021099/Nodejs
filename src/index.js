@@ -1,41 +1,42 @@
 const path = require("path");
 const express = require("express");
 const morgan = require("morgan");
+const methodOverride = require("method-override");
 const hbs = require("express-handlebars");
 const app = express();
 const port = 3000;
+const route = require("./routes/index.js");
+const db = require("./config/db");
+
+// Connect to DB
+db.connect();
 
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+app.use(methodOverride("_method"));
+
 // http logger
-// app.use(morgan("combined"));
+app.use(morgan("combined"));
 
 // Template engine
 app.engine(
   "hbs",
   hbs({
     extname: ".hbs",
+    helpers: {
+      sum: (a, b) => a + b,
+    },
   })
 );
 app.set("view engine", "hbs");
-app.set("views", path.join(__dirname, "resources/views"));
+app.set("views", path.join(__dirname, "resources", "views"));
 
-app.get("/", (req, res) => res.render("home"));
-
-app.get("/news", (req, res) => res.render("news"));
-
-app.get("/search", (req, res) => {
-  return res.render("search");
-});
-
-app.post("/search", (req, res) => {
-  console.log("req", req.body);
-  return res.render("search");
-});
+// Routes init
+route(app);
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  console.log(`App listening at http://localhost:${port}`);
 });

@@ -37,7 +37,7 @@
 
 # Basic routing
 
-- Các method và nhận vào 2 đối số 1 là path và 2 là 1 hàm gồm 2 hoặc nhiều hơn đối số : `req, res`
+- Các method và nhận vào 2 đối số 1 là path và 2 là 1 hàm gồm 2 hoặc nhiều hơn đối số : `req, res. next`
 
 `app.METHOD(PATH, HANDLER)`
 
@@ -97,4 +97,16 @@ app.get("/search", (req, res) => {
 
 # POST method
 
+# Cài đặt MongoDBCompass
 
+# Prettier - code formatter
+
+# Install mongoose
+
+- Mongoose is a MongoDB object modeling tool designed to work in an asynchronous environment. Mongoose supports both promises and callbacks.
+
+- Mongoose đứng giữa nodejs và mongoDB
+
+# Create model
+
+# Chỉnh sửa vài chỗ & install JSON viewer
