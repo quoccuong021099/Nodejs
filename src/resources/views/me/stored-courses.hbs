@@ -1,9 +1,17 @@
-<form class="mt-4" name="container-form" method="post" action="/courses/handle-form-actions">
+<form
+  class="mt-4"
+  name="container-form"
+  method="post"
+  action="/courses/handle-form-actions"
+>
   <div class="mt-4 d-flex justify-content-between">
     <h3>My courses</h3>
     <a href="/me/trash/courses">Trash ({{deleteCount}})</a>
   </div>
-  <div class="mt-4 justify-content-between d-flex align-items-center" style="width:500px">
+  <div
+    class="mt-4 justify-content-between d-flex align-items-center"
+    style="width:500px"
+  >
     <div class="form-group mb-0">
       <label for="checkAll">Chọn tất cả</label>
       <input id="checkAll" class="" type="checkbox" />
@@ -12,53 +20,88 @@
       <option value=""> -- Hành Động --</option>
       <option value="delete"> Xoá</option>
     </select>
-    <button class="btn btn-primary btn-small mt-4 mb-4  check-all-submit-btn" disabled>Apply</button>
+    <button
+      class="btn btn-primary btn-small mt-4 mb-4 check-all-submit-btn"
+      disabled
+    >Apply</button>
   </div>
   <table class="table">
     <thead>
+      {{_sort.type}}
       <tr>
         <th scope="col">#</th>
         <th scope="col">N.o</th>
-        <th scope="col">Courses's name</th>
-        <th scope="col">Level</th>
-        <th scope="col">Created At</th>
+        <th scope="col">
+          Courses's name
+          {{{sortable "name" _sort}}}
+        </th>
+        <th scope="col">
+          Level
+          {{{sortable "level" _sort}}}
+        </th>
+        <th scope="col">
+          Created At
+          {{{sortable "createdAt" _sort}}}
+        </th>
         <th scope="col">Action</th>
       </tr>
     </thead>
     <tbody>
       {{#each courses}}
-      <tr>
-        <th>
-          <input name="coursesIds[]" id="{{this._id}}" type="checkbox" value="{{this._id}}" />
-        </th>
-        <th scope="row">{{sum @index 1}}</th>
-        <td>{{this.name}}</td>
-        <td>{{this.level}}</td>
-        <td>{{this.createdAt}}</td>
-        <td>
-          <a href="/courses/{{this._id}}/edit">Edit</a>
-          &nbsp;&nbsp;&nbsp;
-          <a href="#" data-toggle="modal" data-id="{{this._id}}" data-target="#exampleModal">Delete</a>
-        </td>
-      </tr>
+        <tr>
+          <th>
+            <input
+              name="coursesIds[]"
+              id="{{this._id}}"
+              type="checkbox"
+              value="{{this._id}}"
+            />
+          </th>
+          <th scope="row">{{sum @index 1}}</th>
+          <td>{{this.name}}</td>
+          <td>{{this.level}}</td>
+          <td>{{this.createdAt}}</td>
+          <td>
+            <a href="/courses/{{this._id}}/edit">Edit</a>
+            &nbsp;&nbsp;&nbsp;
+            <a
+              href="#"
+              data-toggle="modal"
+              data-id="{{this._id}}"
+              data-target="#exampleModal"
+            >Delete</a>
+          </td>
+        </tr>
       {{else}}
-      <tr>
-        <td colspan="5" class="text-center">You have not posted any courses yet.
-          <a href="/courses/create">Sign up for a course now</a>
-        </td>
-      </tr>
+        <tr>
+          <td colspan="5" class="text-center">You have not posted any courses
+            yet.
+            <a href="/courses/create">Sign up for a course now</a>
+          </td>
+        </tr>
       {{/each}}
     </tbody>
   </table>
 </form>
-{{!-- confirm image delete --}}
-<div class=" modal" tabindex="-1" role="dialog" id="exampleModal" aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
+{{! confirm image delete }}
+<div
+  class="modal"
+  tabindex="-1"
+  role="dialog"
+  id="exampleModal"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Notification</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -66,17 +109,22 @@
         <p>Are you sure to delete this course?</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal"> Close</button>
-        <button id="btn-delete-course" type="button" class="btn btn-danger">Delete</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">
+          Close</button>
+        <button
+          id="btn-delete-course"
+          type="button"
+          class="btn btn-danger"
+        >Delete</button>
       </div>
     </div>
   </div>
 </div>
-{{!-- delete hidden form --}}
+{{! delete hidden form }}
 <form method="POST" action="" name="delete-course-form">
 </form>
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
+   document.addEventListener("DOMContentLoaded", function () {
     let courseId;
     let deleteForm = document.forms['delete-course-form'];
     let btnDeleteCourse = document.getElementById('btn-delete-course')

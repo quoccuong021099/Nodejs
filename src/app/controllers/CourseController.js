@@ -26,9 +26,8 @@ class CourseController {
     const course = new Course(formData); // new model
     course
       .save()
-      .then(() =>
-        res.redirect("/me/stored/courses").catch((err) => console.log(err))
-      );
+      .then(() => res.redirect("/me/stored/courses"))
+      .catch(next);
   }
 
   // [GET] /courses/:id/edit

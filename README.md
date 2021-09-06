@@ -110,3 +110,29 @@ app.get("/search", (req, res) => {
 # Create model
 
 # Chỉnh sửa vài chỗ & install JSON viewer
+
+1. lie
+
+- Don't lie to me?
+- Did you lie to me?
+
+2. accident
+
+- It was an accident
+- I had an accident when i was 6 years old
+
+3. breathe /bri th/
+
+- I can't breathe
+- Every second i'm breathing
+
+4. lose
+
+- I don't want to lose you
+- I afraid to lose you
+  /əˈfrād/
+
+5. dare
+
+- How dare you
+- Do you dare to love me
